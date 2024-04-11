@@ -8,7 +8,7 @@ object bombon {
 	 */
 	const property precio = 5
 	var property peso = 15
-	const property sabor = "frutilla"
+	const property sabor = frutilla
 	const property tieneGluten = false
 
 	method mordisco() {
@@ -25,14 +25,12 @@ object alfajor {
 	 */
 	const property precio = 12
 	var property peso = 300
-	const property sabor = "chocolate"
+	const property sabor = chocolate
 	const property tieneGluten = true
 
 	method mordisco() {
 		peso *= 0.8
 	}
-	
-	
 
 }
 
@@ -44,7 +42,7 @@ object caramelo {
 	 */
 	const property precio = 1
 	var property peso = 5
-	const property sabor = "frutilla"
+	const property sabor = frutilla
 	const property tieneGluten = false
 
 	method mordisco() {
@@ -61,7 +59,7 @@ object chupetin {
 	 */
 	const property precio = 2
 	var property peso = 7
-	const property sabor = "naranja"
+	const property sabor = naranja
 	const property tieneGluten = false
 
 	method mordisco() {
@@ -83,7 +81,7 @@ object oblea {
 	 */
 	const property precio = 5
 	var property peso = 250
-	const property sabor = "vainilla"
+	const property sabor = vainilla
 	const property tieneGluten = true
 
 	method mordisco() {
@@ -106,15 +104,14 @@ object chocolatin {
 	 */
 	var precio = 0
 	var property peso = 0
-	const property sabor = "chocolate"
+	const property sabor = chocolate
 	const property tieneGluten = true
 
 	method peso(_peso) {
 		peso = _peso
 		precio = 0.5 * _peso
-
 	}
-	
+
 	method peso() {
 		return peso
 	}
@@ -139,7 +136,7 @@ object golosinaBaniada {
 	 */
 	var golosinaBase = bombon
 	var pesoBanio = 4
-	const property sabor = "chocolate"
+	const property sabor = chocolate
 
 	method peso() {
 		return golosinaBase.peso() + pesoBanio
@@ -152,6 +149,10 @@ object golosinaBaniada {
 	method mordisco() {
 		golosinaBase.mordisco()
 		pesoBanio -= 2
+	}
+
+	method tieneGluten() {
+		return golosinaBase.tieneGluten()
 	}
 
 }
@@ -175,36 +176,38 @@ object pastillaTutiFruti {
 		sabor = sabor.saborSiguiente()
 		peso -= 2
 	}
-	
+
 	method sabor() {
-		return sabor.sabor()
+		return sabor
 	}
 
 }
 
 object frutilla {
-	method sabor() {
-		return "frutilla"
-	}	
+
 	method saborSiguiente() {
 		return chocolate
 	}
+
 }
 
 object chocolate {
-	method sabor() {
-		return "chocolate"
-	}
+
 	method saborSiguiente() {
 		return naranja
 	}
+
 }
 
-object naranja { 
-	method sabor() {
-		return "naranja"
-	}
+object naranja {
+
 	method saborSiguiente() {
 		return frutilla
 	}
+
 }
+
+object vainilla {
+
+}
+

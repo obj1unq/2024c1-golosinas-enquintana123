@@ -83,6 +83,7 @@ describe "Tests de golosina baniada" {
 		assert.equals(13, golosinaBaniada.peso())
 		golosinaBaniada.mordisco()
 		assert.equals(7.8, golosinaBaniada.peso())
+		assert.notThat(golosinaBaniada.tieneGluten())
 	}
 
 }
@@ -90,13 +91,13 @@ describe "Tests de golosina baniada" {
 describe "Tests de golosina pastilla Tuti Fruti" {
 
 	test "cambio de sabores con los mordiscos" {
-		assert.equals("frutilla", pastillaTutiFruti.sabor())
+		assert.equals(frutilla, pastillaTutiFruti.sabor())
 		pastillaTutiFruti.mordisco()
-		assert.equals("chocolate", pastillaTutiFruti.sabor())
+		assert.equals(chocolate, pastillaTutiFruti.sabor())
 		pastillaTutiFruti.mordisco()
-		assert.equals("naranja", pastillaTutiFruti.sabor())
+		assert.equals(naranja, pastillaTutiFruti.sabor())
 		pastillaTutiFruti.mordisco()
-		assert.equals("frutilla", pastillaTutiFruti.sabor())
+		assert.equals(frutilla, pastillaTutiFruti.sabor())
 	}
 
 }
