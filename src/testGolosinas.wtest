@@ -1,0 +1,103 @@
+import golosinas.*
+
+describe "Tests de bombon" {
+
+	test "Pesa 15. despues del mordisco debe pesar un 20% menos, menos 1 (11)" {
+		assert.equals(15, bombon.peso())
+		bombon.mordisco()
+		assert.equals(11, bombon.peso())
+	}
+
+}
+
+describe "Tests de alfajor" {
+
+	test "Pesa 300. despues del mordisco debe pesar un 20% menos (240)" {
+		assert.equals(300, alfajor.peso())
+		alfajor.mordisco()
+		assert.equals(240, alfajor.peso())
+	}
+
+}
+
+describe "Tests de caramelo" {
+
+	test "Pesa 5. despues del mordisco debe pesar un gramo menos (4)" {
+		assert.equals(5, caramelo.peso())
+		caramelo.mordisco()
+		assert.equals(4, caramelo.peso())
+	}
+
+}
+
+describe "Tests de chupetin" {
+
+	test "Pesa 7. despues del mordisco debe pesar un 10% menos (4)" {
+		assert.equals(7, chupetin.peso())
+		chupetin.mordisco()
+		assert.equals(6.3, chupetin.peso())
+	}
+
+	test "Pesa 1.9. despues del mordisco debe pesar lo mismo" {
+		chupetin.peso(1.9)
+		assert.equals(1.9, chupetin.peso())
+		chupetin.mordisco()
+		assert.equals(1.9, chupetin.peso())
+	}
+
+}
+
+describe "Tests de oblea" {
+
+	test "Pesa 250. despues del mordisco debe pesar un 50% menos (125)" {
+		assert.equals(250, oblea.peso())
+		oblea.mordisco()
+		assert.equals(125, oblea.peso())
+	}
+
+	test "Pesa 60. despues del mordisco debe pesar un 25% menos (45)" {
+		oblea.peso(60)
+		oblea.mordisco()
+		assert.equals(45, oblea.peso())
+	}
+
+}
+
+describe "Tests de chocolatin" {
+
+	test "Pesa 60. entonces el precio es $30, y despues del mordisoc peso 58, y el precio se mantiene" {
+		chocolatin.peso(60)
+		assert.equals(30, chocolatin.precio())
+		chocolatin.mordisco()
+		assert.equals(30, chocolatin.precio())
+		assert.equals(58, chocolatin.peso())
+	}
+
+}
+
+describe "Tests de golosina baniada" {
+
+	test "peso con base de bombon (15) + 4 del banio" {
+		assert.equals(19, golosinaBaniada.peso())
+		golosinaBaniada.mordisco()
+		assert.equals(13, golosinaBaniada.peso())
+		golosinaBaniada.mordisco()
+		assert.equals(7.8, golosinaBaniada.peso())
+		assert.notThat(golosinaBaniada.tieneGluten())
+	}
+
+}
+
+describe "Tests de golosina pastilla Tuti Fruti" {
+
+	test "cambio de sabores con los mordiscos" {
+		assert.equals(frutilla, pastillaTutiFruti.sabor())
+		pastillaTutiFruti.mordisco()
+		assert.equals(chocolate, pastillaTutiFruti.sabor())
+		pastillaTutiFruti.mordisco()
+		assert.equals(naranja, pastillaTutiFruti.sabor())
+		pastillaTutiFruti.mordisco()
+		assert.equals(frutilla, pastillaTutiFruti.sabor())
+	}
+
+}

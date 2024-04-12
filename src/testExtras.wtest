@@ -1,0 +1,29 @@
+import golosinas.*
+import mariano.*
+
+test "gasto en golsinas de frutilla " {
+	mariano.comprar(caramelo) // 1 frutilla
+	assert.equals(1, caramelo.precio())
+	mariano.comprar(chupetin) // 2 naranja
+	assert.equals(2, chupetin.precio())
+	mariano.comprar(bombon) // 5 frutilla
+	assert.equals(5, bombon.precio())
+	mariano.comprar(alfajor) // 12 chocolate
+	assert.equals(12, alfajor.precio())
+	assert.equals(#{1, 2, 5, 12}, mariano.preciosGolosinas())
+	assert.equals(6, mariano.gastoEnSabor(frutilla))
+}
+
+test "compro y desecho caramelo" {
+	mariano.comprar(caramelo)
+	mariano.comprar(chupetin)
+	mariano.desechar(caramelo)
+	assert.that(mariano.comproYDesecho(caramelo))
+}
+
+test "compro y NO desecho caramelo" {
+	mariano.comprar(caramelo)
+	mariano.comprar(chupetin)
+	mariano.desechar(chupetin)
+	assert.notThat(mariano.comproYDesecho(caramelo))
+}

@@ -1,0 +1,141 @@
+import mariano.*
+import golosinas.*
+
+describe "Comprar Golosinas" {
+
+	test "Comprar 2 golosinas" {
+		mariano.comprar(alfajor)
+		assert.equals(1, mariano.cantidadDeGolosinas())
+		mariano.comprar(bombon)
+		assert.equals(2, mariano.cantidadDeGolosinas())
+	}
+
+}
+
+describe "Comprar y desechar" {
+
+	test "Comprar 2 golosinas y desechar las 2" {
+		mariano.comprar(alfajor)
+		mariano.comprar(alfajor)
+		mariano.desechar(alfajor)
+		mariano.desechar(alfajor)
+		assert.equals(0, mariano.cantidadDeGolosinas())
+	}
+
+	test "Comprar 2 golosinas y desechar 1" {
+		mariano.comprar(alfajor)
+		mariano.comprar(oblea)
+		mariano.desechar(alfajor)
+		assert.equals(1, mariano.cantidadDeGolosinas())
+	}
+
+}
+
+describe "operaciones con las golosinas" {
+
+	test "tiene la golosina" {
+		mariano.comprar(alfajor)
+		mariano.comprar(oblea)
+		assert.that(mariano.tieneLaGolosina(oblea))
+	}
+
+	test "no tiene la golosina" {
+		mariano.comprar(alfajor)
+		mariano.comprar(oblea)
+		assert.notThat(mariano.tieneLaGolosina(caramelo))
+	}
+
+	test "probar golosinas baniada con base de bombon (15) + 4 del banio" {
+		mariano.comprar(golosinaBaniada)
+		assert.equals(19, mariano.pesoGolosinas())
+		mariano.probarGolosinas()
+		assert.equals(13, mariano.pesoGolosinas())
+		mariano.probarGolosinas()
+		assert.equals(7.8, mariano.pesoGolosinas())
+		assert.notThat(golosinaBaniada.tieneGluten())
+	}
+
+	test "peso total de bombon (15) + 4 del banio y un chupetin peso 7. Peso total 26" {
+		mariano.comprar(golosinaBaniada)
+		mariano.comprar(chupetin)
+		assert.equals(26, mariano.pesoGolosinas())
+	}
+
+	test "golosina mas cara" {
+		mariano.comprar(caramelo)
+		mariano.comprar(chupetin)
+		assert.equals(chupetin, mariano.golosinaMasCara())
+	}
+
+	test "sabores" {
+		mariano.comprar(caramelo) // frutilla
+		mariano.comprar(chupetin) // naranja
+		mariano.comprar(bombon) // frutilla
+		mariano.comprar(alfajor) // chocolate
+		assert.equals(#{ frutilla, chocolate, naranja }, mariano.sabores())
+	}
+
+	test "golosinas de sabor naranja" {
+		mariano.comprar(caramelo) // frutilla
+		mariano.comprar(chupetin) // naranja
+		mariano.comprar(bombon) // frutilla
+		mariano.comprar(alfajor) // chocolate
+		assert.equals(#{chupetin}, mariano.golosinasDeSabor(naranja))
+	}
+
+	test "golosina de sabor frutilla" {
+		mariano.comprar(caramelo) // frutilla
+		mariano.comprar(chupetin) // naranja
+		mariano.comprar(chupetin) // naranja
+		mariano.comprar(bombon) // frutilla
+		mariano.comprar(alfajor) // chocolate
+		assert.equals(frutilla, mariano.golosinaDeSabor(frutilla).sabor())
+	}
+
+	test "hay precios cuidados" {
+		mariano.comprar(caramelo) // 1
+		mariano.comprar(chupetin) // 2
+		assert.that(mariano.preciosCuidados())
+	}
+
+	test "no hay precioes cuidados " {
+		mariano.comprar(caramelo) // 1
+		mariano.comprar(chupetin) // 2
+		mariano.comprar(bombon) // 15
+		mariano.comprar(alfajor) // 12
+		assert.notThat(mariano.preciosCuidados())
+	}
+
+	test "NO hay golosinas sin TACC" {
+		mariano.comprar(caramelo) // NO tiene gluten
+		mariano.comprar(chupetin) // NO tiene gluten
+		mariano.comprar(bombon) // NO tiene gluten
+		mariano.comprar(alfajor) // tiene gluten
+		assert.that(mariano.hayGolosinaSinTACC())
+	}
+
+	test "Hay golosinas sin TACC" {
+		mariano.comprar(alfajor) // tiene gluten
+		assert.notThat(mariano.hayGolosinaSinTACC())
+	}
+
+	test "golosinas faltantes pasta pastillaTutiFruti, oblea" {
+		mariano.comprar(caramelo) // NO tiene gluten
+		mariano.comprar(chupetin) // NO tiene gluten
+		mariano.comprar(bombon) // NO tiene gluten
+		mariano.comprar(alfajor) // tiene gluten
+		assert.equals(#{ oblea, pastillaTutiFruti }, mariano.golosinasFaltantes(#{ pastillaTutiFruti, oblea, caramelo, bombon }))
+	}
+
+	test "gustos faltantes vainilla" {
+		mariano.comprar(caramelo) // frutilla
+		mariano.comprar(chupetin) // naranja
+		mariano.comprar(bombon) // frutilla
+		mariano.comprar(alfajor) // chocolate
+		assert.equals(#{ vainilla }, mariano.gustosFaltantes(#{ frutilla, vainilla }))
+	}
+
+
+
+}
+
