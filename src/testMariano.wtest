@@ -6,7 +6,7 @@ describe "Comprar Golosinas" {
 	test "Comprar 2 golosinas" {
 		mariano.comprar(alfajor)
 		assert.equals(1, mariano.cantidadDeGolosinas())
-		mariano.comprar(alfajor)
+		mariano.comprar(bombon)
 		assert.equals(2, mariano.cantidadDeGolosinas())
 	}
 
@@ -70,7 +70,6 @@ describe "operaciones con las golosinas" {
 	test "sabores" {
 		mariano.comprar(caramelo) // frutilla
 		mariano.comprar(chupetin) // naranja
-		mariano.comprar(chupetin) // naranja
 		mariano.comprar(bombon) // frutilla
 		mariano.comprar(alfajor) // chocolate
 		assert.equals(#{ frutilla, chocolate, naranja }, mariano.sabores())
@@ -79,10 +78,9 @@ describe "operaciones con las golosinas" {
 	test "golosinas de sabor naranja" {
 		mariano.comprar(caramelo) // frutilla
 		mariano.comprar(chupetin) // naranja
-		mariano.comprar(chupetin) // naranja
 		mariano.comprar(bombon) // frutilla
 		mariano.comprar(alfajor) // chocolate
-		assert.equals([ chupetin, chupetin ], mariano.golosinasDeSabor(naranja))
+		assert.equals(#{chupetin}, mariano.golosinasDeSabor(naranja))
 	}
 
 	test "golosina de sabor frutilla" {
@@ -96,15 +94,13 @@ describe "operaciones con las golosinas" {
 
 	test "hay precios cuidados" {
 		mariano.comprar(caramelo) // 1
-		mariano.comprar(chupetin) // 7
-		mariano.comprar(chupetin) // 7
+		mariano.comprar(chupetin) // 2
 		assert.that(mariano.preciosCuidados())
 	}
 
 	test "no hay precioes cuidados " {
 		mariano.comprar(caramelo) // 1
-		mariano.comprar(chupetin) // 7
-		mariano.comprar(chupetin) // 7
+		mariano.comprar(chupetin) // 2
 		mariano.comprar(bombon) // 15
 		mariano.comprar(alfajor) // 12
 		assert.notThat(mariano.preciosCuidados())
@@ -113,7 +109,6 @@ describe "operaciones con las golosinas" {
 	test "NO hay golosinas sin TACC" {
 		mariano.comprar(caramelo) // NO tiene gluten
 		mariano.comprar(chupetin) // NO tiene gluten
-		mariano.comprar(chupetin) // NO tiene gluten
 		mariano.comprar(bombon) // NO tiene gluten
 		mariano.comprar(alfajor) // tiene gluten
 		assert.that(mariano.hayGolosinaSinTACC())
@@ -121,28 +116,26 @@ describe "operaciones con las golosinas" {
 
 	test "Hay golosinas sin TACC" {
 		mariano.comprar(alfajor) // tiene gluten
-		mariano.comprar(alfajor) // tiene gluten
 		assert.notThat(mariano.hayGolosinaSinTACC())
 	}
 
 	test "golosinas faltantes pasta pastillaTutiFruti, oblea" {
 		mariano.comprar(caramelo) // NO tiene gluten
 		mariano.comprar(chupetin) // NO tiene gluten
-		mariano.comprar(chupetin) // NO tiene gluten
 		mariano.comprar(bombon) // NO tiene gluten
 		mariano.comprar(alfajor) // tiene gluten
 		assert.equals(#{ oblea, pastillaTutiFruti }, mariano.golosinasFaltantes(#{ pastillaTutiFruti, oblea, caramelo, bombon }))
 	}
-	
+
 	test "gustos faltantes vainilla" {
 		mariano.comprar(caramelo) // frutilla
 		mariano.comprar(chupetin) // naranja
-		mariano.comprar(chupetin) // naranja
 		mariano.comprar(bombon) // frutilla
 		mariano.comprar(alfajor) // chocolate
-		assert.equals(#{vainilla}, mariano.gustosFaltantes(#{frutilla, vainilla}))
+		assert.equals(#{ vainilla }, mariano.gustosFaltantes(#{ frutilla, vainilla }))
 	}
-	
+
+
 
 }
 

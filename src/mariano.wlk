@@ -1,12 +1,15 @@
 object mariano {
 
-	const golosinas = []
-
+	const golosinas = #{}
+	var cantidadSaborMasPopular = 0
+	const golosinasDesechadas = #{}
+	
 	method comprar(unaGolosina) {
 		golosinas.add(unaGolosina)
 	}
 
 	method desechar(unaGolosina) {
+		golosinasDesechadas.add(unaGolosina)
 		golosinas.remove(unaGolosina)
 	}
 
@@ -63,5 +66,33 @@ object mariano {
 		return gustosFaltantes.filter({ gustoFaltante => not self.sabores().contains(gustoFaltante) })
 	}
 
+	method gastoEnSabor(sabor) {
+		//precio total de las golosinas del sabor indicado.
+		return self.golosinasDeSabor(sabor).map({golosina => golosina.precio()}).sum()
+		
+	}
+	
+	method preciosGolosinas() {
+		//devuelve una lista con los precioes de las golosinas
+		return golosinas.map({golosina => golosina.precio()}).asSet()
+	}
+	
+	method comproYDesecho(unaGolosina) {
+		//indica si Mariano primero compró, y después desechó, la golosina por la que se pregunta.
+		return self.estaDesechada(unaGolosina) and not self.estaEnLaBolsa(unaGolosina)
+	}
+	
+	method estaDesechada(unaGolosina) {
+		return golosinasDesechadas.contains(unaGolosina)
+	}
+	
+	method estaEnLaBolsa(unaGolosina) {
+		return golosinas.contains(unaGolosina)
+	}
+	/*
+	 * saborMasPopular() y saborMasPesado()
+	 * No se me ocurre como hacer. Como curse estructuras de datos usaria un diccionario para armar {"sabor" => cantidad}
+	 * Y luego me quedaria con el "sabor" cuyo valor es el mayor
+	*/
 }
 
